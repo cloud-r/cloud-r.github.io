@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  
+  
+    <meta name="keywords" content="DO SOMETHING HAPPY">
+  
+  
+    <meta name="description" content="现在才是最好的">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>
+    SpringBoot基础 |
+    
+    notecc</title>
+  
+    <link rel="shortcut icon" href="/favicon.ico">
+  
+  
+<link rel="stylesheet" href="/css/style.css">
+
+  
+    
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.min.css">
+
+  
+  
+<script src="/js/pace.min.js"></script>
+
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+
+<body>
+<main class="content">
+  <section class="outer">
+  <article id="post-code/JavaWeb/SpringBoot基础" class="article article-type-post" itemscope
+    itemprop="blogPost" data-scroll-reveal>
+
+    <div class="article-inner">
+        
+        <header class="article-header">
+            
+  
+    <h1 class="article-title" itemprop="name">
+      SpringBoot基础
+    </h1>
+  
+  
+
+
+
+
+
+            <!-- 开始添加字数统计-->
+            
+            <div style="margin-top:10px;">
+    <span class="post-time">
+        <span class="post-meta-item-icon">
+            <i class="fa fa-keyboard-o"></i>
+            <span class="post-meta-item-text"> words count: </span>
+            <span class="post-count">1.2k</span>
+        </span>
+    </span>
+
+    <span class="post-time">
+        &nbsp; | &nbsp;
+        <span class="post-meta-item-icon">
+            <i class="fa fa-hourglass-half"></i>
+            <span class="post-meta-item-text"> expected cost: </span>
+            <span class="post-count">4 minutes </span>
+        </span>
+    </span>
+</div>
+            
+            <!-- 添加完成 -->
+
+        </header>
+        
+
+        
+        <div class="article-meta">
+            <a href="/posts/25912.html" class="article-date">
+  <time datetime="2020-04-26T04:21:20.562Z" itemprop="datePublished">2020-04-26</time>
+</a>
+            
+  <div class="article-category">
+    <a class="article-category-link" href="/categories/Code/">Code</a>
+  </div>
+
+        </div>
+        
+
+        
+        
+    <div class="tocbot"></div>
+
+
+
+
+
+        
+
+        <div class="article-entry" itemprop="articleBody">
+            
+
+
+            
+
+            
+            <p>Spring Boot是由Pivotal团队提供的全新框架，其设计目的是用来简化新Spring应用的初始搭建以及开发过程。该框架使用了特定的方式来进行配置，从而使开发人员不再需要定义样板化的配置。通过这种方式，Spring Boot致力于在蓬勃发展的快速应用开发领域(rapid application development)成为领导者。</p>
+<a id="more"></a>
+
+
+<h3 id="SpringBoot"><a href="#SpringBoot" class="headerlink" title="SpringBoot"></a>SpringBoot</h3><h4 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h4><ul>
+<li><p>@GetMapping、@PostMapping和@RequestMapping的区别</p>
+<ul>
+<li><p>@GetMapping</p>
+<blockquote>
+<p>用于将HTTP GET请求映射到特定处理程序方法的注释。具体来说，@GetMapping是一个作为快捷方式的组合注释@RequestMapping(method = RequestMethod.GET)。</p>
+</blockquote>
+</li>
+<li><p>@PostMapping</p>
+<blockquote>
+<p>用于将HTTP POST请求映射到特定处理程序方法的注释。具体来说，@PostMapping是一个作为快捷方式的组合注释@RequestMapping(method = RequestMethod.POST)。</p>
+</blockquote>
+</li>
+<li><p>@RequestMapping</p>
+<blockquote>
+<p>一般情况下都是用@RequestMapping（method=RequestMethod.），因为@<strong>RequestMapping可以直接替代以上两个注解</strong>，但是以上两个注解并不能替代@RequestMapping，@RequestMapping相当于以上两个注解的父类！ （找到相应的控制器）</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p>@RestController</p>
+<ul>
+<li>返回结果默认为字符串</li>
+</ul>
+</li>
+<li><p>@Controller </p>
+<ul>
+<li>返回结果默认为视图。负责处理由DispatcherServlet分发的请求，将用户的请求经过业务层处理之后封装成一个Mode,然后将该model递交给相应的视图层，最后返回视图层。</li>
+</ul>
+</li>
+<li><p>@ResponseBody </p>
+<ul>
+<li>修改了Controller的返回要求，返回结果为字符串</li>
+</ul>
+</li>
+<li><p><a href="https://www.cnblogs.com/tomingto/p/11377138.html" target="_blank" rel="noopener">@RequestParam</a></p>
+<pre class=" language-java"><code class="language-java">      <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"query"</span><span class="token punctuation">)</span>
+      <span class="token keyword">public</span> ModelAndView <span class="token function">query</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestParam</span><span class="token punctuation">(</span>value <span class="token operator">=</span> <span class="token string">"q"</span><span class="token punctuation">,</span> required <span class="token operator">=</span> <span class="token boolean">false</span><span class="token punctuation">,</span> defaultValue <span class="token operator">=</span> <span class="token string">"1234567"</span><span class="token punctuation">)</span> String q<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+          ModelAndView mav <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ModelAndView</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          mav<span class="token punctuation">.</span><span class="token function">addObject</span><span class="token punctuation">(</span><span class="token string">"q"</span><span class="token punctuation">,</span> q<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          mav<span class="token punctuation">.</span><span class="token function">setViewName</span><span class="token punctuation">(</span><span class="token string">"blogQuery"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">return</span> mav<span class="token punctuation">;</span>
+      <span class="token punctuation">}</span>
+
+      <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/returnView"</span><span class="token punctuation">)</span>
+      <span class="token keyword">public</span> String <span class="token function">hello</span><span class="token punctuation">(</span><span class="token annotation punctuation">@RequestParam</span> String name<span class="token punctuation">,</span> Model model<span class="token punctuation">)</span><span class="token punctuation">{</span>
+          model<span class="token punctuation">.</span><span class="token function">addAttribute</span><span class="token punctuation">(</span><span class="token string">"name"</span><span class="token punctuation">,</span>name<span class="token punctuation">)</span><span class="token punctuation">;</span>
+          <span class="token keyword">return</span> <span class="token string">"hello"</span><span class="token punctuation">;</span>
+      <span class="token punctuation">}</span></code></pre>
+</li>
+<li><p><a href="https://blog.csdn.net/qq_29115715/article/details/80090403" target="_blank" rel="noopener">@PathVariable</a></p>
+<ul>
+<li><p>可以将 <strong>URL中占位符参数</strong>绑定到控制器处理方法的入参中：URL 中的 {xxx} 占位符可以通过@PathVariable(“xxx“) 绑定到操作方法的入参中。</p>
+<pre class=" language-java"><code class="language-java">  <span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/{id}"</span><span class="token punctuation">)</span>
+  <span class="token keyword">public</span> ModelAndView <span class="token function">show</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">)</span> Integer id<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      ModelAndView mav <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ModelAndView</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      mav<span class="token punctuation">.</span><span class="token function">addObject</span><span class="token punctuation">(</span><span class="token string">"id"</span><span class="token punctuation">,</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+      mav<span class="token punctuation">.</span><span class="token function">setViewName</span><span class="token punctuation">(</span><span class="token string">"blog"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+      <span class="token keyword">return</span> mav<span class="token punctuation">;</span>
+  <span class="token punctuation">}</span>
+</code></pre>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li><p>@Table</p>
+<ul>
+<li><code>@Table(name=&quot;user_test&quot;)</code>指定映射的表名</li>
+</ul>
+</li>
+<li><p>@Autowired@Resource</p>
+<blockquote>
+<p>@Autowired默认按照<strong>byType</strong>方式进行bean匹配，@Resource默认按照<strong>byName</strong>方式进行bean匹配</p>
+</blockquote>
+<blockquote>
+<p>@Autowired是Spring的注解，@Resource是J2EE的注解，根据导入注解的包名就可以知道。</p>
+</blockquote>
+<blockquote>
+<p>Spring属于第三方的，J2EE是Java自己的东西。因此，建议使用@Resource注解，以减少代码和Spring之间的耦合。</p>
+</blockquote>
+</li>
+<li><p>@Service</p>
+<ul>
+<li>service标注<strong>业务层组件</strong>,这个注解是写在类上面的，标注将这个类交给Spring容器管理，spring容器要为他创建对象</li>
+</ul>
+</li>
+</ul>
+<h5 id="JPA注解"><a href="#JPA注解" class="headerlink" title="JPA注解"></a>JPA注解</h5><ul>
+<li><p>@Entity</p>
+<ul>
+<li>表明被标注的类是一个实体类</li>
+</ul>
+</li>
+<li><p>@Table</p>
+<ul>
+<li>指出实体类对应的表名</li>
+</ul>
+</li>
+<li><p>@Id</p>
+<ul>
+<li>声明实体类对应的属性映射为数据库的主键列</li>
+</ul>
+</li>
+<li><p>@GenerateValue</p>
+<ul>
+<li>用于标注主键的生成策略<ul>
+<li><code>@GeneratedValue(strategy = GenerationType.IDENTITY)</code> 自增</li>
+<li><code>@GeneratedValue(strategy = GenerationType.SEQUENCE)</code> 通过序列产生主键</li>
+<li><code>@GeneratedValue(strategy = GenerationType.AUTO)</code> 自动选择主键生成策略，以适应不同的数据库移植。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><a href="https://www.cnblogs.com/lovetl/p/11685843.html" target="_blank" rel="noopener">@Column</a></p>
+<ul>
+<li>属性<ul>
+<li>name属性定义了被标注字段在数据库表中所对应字段的名称；</li>
+<li>unique属性表示该字段是否为唯一标识，默认为false。如果表中有一个字段需要唯一标识，则既可以使用该标记，也可以使用@Table标记中的@UniqueConstraint。</li>
+<li>nullable属性表示该字段是否可以为null值，默认为true。</li>
+<li>insertable属性表示在使用“INSERT”脚本插入数据时，是否需要插入该字段的值。</li>
+<li>updatable属性表示在使用“UPDATE”脚本插入数据时，是否需要更新该字段的值。insertable和updatable属性一般多用于只读的属性，例如主键和外键等。这些字段的值通常是自动生成的。</li>
+<li>columnDefinition属性表示创建表时，该字段创建的SQL语句，一般用于通过Entity生成表定义时使用。（也就是说，如果DB中表已经建好，该属性没有必要使用。）</li>
+<li>table属性定义了包含当前字段的表名。</li>
+<li>length属性表示字段的长度，当字段的类型为varchar时，该属性才有效，默认为255个字符。</li>
+<li>precision属性和scale属性表示精度，当字段类型为double时，precision表示数值的总长度，scale表示小数点所占的位数。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>@Modifying</p>
+<ul>
+<li>在@Query注解中编写JPQL实现DELETE和UPDATE操作的时候必须加上@modifying注解，以通知Spring Data 这是一个DELETE或UPDATE操作。</li>
+<li>UPDATE或者DELETE操作需要使用事务，此时需要 定义Service层，在Service层的方法上添加事务操作。</li>
+<li>注意JPQL不支持INSERT操作。　</li>
+<li><del><a href="https://www.cnblogs.com/zhaobingqing/p/6864223.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhaobingqing/p/6864223.html</a></del>    </li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>参考：<a href="https://blog.csdn.net/qq_41973208/article/details/85008962" target="_blank" rel="noopener">https://blog.csdn.net/qq_41973208/article/details/85008962</a> <br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.cnblogs.com/lovetl/p/11685843.html" target="_blank" rel="noopener">https://www.cnblogs.com/lovetl/p/11685843.html</a><br><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="https://www.cnblogs.com/zhaobingqing/p/6864223.html" target="_blank" rel="noopener">https://www.cnblogs.com/zhaobingqing/p/6864223.html</a><br></p>
+</blockquote>
+
+            
+            <!-- 《添加版权声明 -->
+            
+              <!-- 《添加版权声明 -->
+  <!--添加版权声明https://github.com/JoeyBling/hexo-theme-yilia-plus/commit/c1215e132f6d5621c5fea83d3c4f7ccbcca074a3-->
+  
+
+  <!-- #版权基础设定：0-关闭声明； 1-文章对应的md文件里有declare: true属性，才有版权声明； 2-所有文章均有版权声明 -->
+  
+  <div class="declare">
+      <strong class="author">本文作者：</strong>
+      
+      Cloudr
+      
+      <br>
+      <!-- <strong class="create-time">发布时间：</strong>
+      2020-04-26 
+      <br> -->
+      <!-- <strong class="update-time">最后更新：</strong>
+      2020-10-06
+      <br> -->
+      <!-- <strong class="article-titles">本文标题：</strong>
+      <a href="https://notecc.ink/posts/25912.html" title="SpringBoot基础" target="_blank">SpringBoot基础</a>
+      <br> -->
+      <strong class="article-url">本文链接：</strong>
+      <a href="https://notecc.ink/posts/25912.html" title="SpringBoot基础" target="_blank">https://notecc.ink/posts/25912.html</a>
+      <br>
+      <strong class="copyright">版权声明：</strong>
+      本作品采用
+      <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" title="知识共享署名-非商业性使用-相同方式共享 4.0 国际许可协议">CC BY-NC-SA 4.0</a>
+      许可协议进行许可。转载请注明出处。
+      
+      <br>
+      
+  </div>
+  
+  <!-- 添加版权声明》 -->
+            
+            <!-- 添加版权声明》 -->
+        </div>
+
+
+
+        <footer class="article-footer">
+            <a data-url="https://notecc.ink/posts/25912.html" data-id="ckhu41wd50054dc9460lj7fji" class="article-share-link">
+                Compartir
+            </a>
+            
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/JavaWeb/" rel="tag">JavaWeb</a></li></ul>
+
+        </footer>
+
+    </div>
+
+    
+    
+  <nav class="article-nav">
+    
+      <a href="/posts/61237.html" class="article-nav-link">
+        <strong class="article-nav-caption">Nuevo</strong>
+        <div class="article-nav-title">
+          
+            排序算法
+          
+        </div>
+      </a>
+    
+    
+      <a href="/posts/60908.html" class="article-nav-link">
+        <strong class="article-nav-caption">Viejo</strong>
+        <div class="article-nav-title">重写HashCode()</div>
+      </a>
+    
+  </nav>
+
+
+    
+
+    
+    
+    
+<div class="gitalk" id="gitalk-container"></div>
+
+<link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+
+
+<script src="https://cdn.jsdelivr.net/gh/cloud-r/GitakRepository/static_files/blog/gitalk.min.js"></script>
+
+
+<script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+
+<script type="text/javascript">
+  var gitalk = new Gitalk({
+    clientID: 'ac06055f7c49938795a3',
+    clientSecret: '460a520458ca501d939291e4f049c621df50fe6c',
+    repo: 'GitakRepository',
+    owner: 'cloud-r',
+    admin: ['cloud-r'],
+    // id: location.pathname,      // Ensure uniqueness and length less than 50
+    id: md5(location.pathname),
+    distractionFreeMode: false,  // Facebook-like distraction free mode
+    pagerDirection: 'last'
+  })
+
+  gitalk.render('gitalk-container')
+</script>
+
+
+
+
+    
+
+</article>
+</section>
+  <footer class="footer">
+  <div class="outer">
+    <div class="float-right">
+      <ul class="list-inline">
+  
+    <li><i class="fe fe-smile-alt"></i> <span id="busuanzi_value_site_uv"></span></li>
+  
+    <li><i class="fe fe-bookmark"></i> <span id="busuanzi_value_page_pv"></span></li>
+  
+</ul>
+    </div>
+    <ul class="list-inline">
+      <li>&copy; 2020 notecc</li>
+      <li>Construido por <a href="http://hexo.io/" target="_blank">Hexo</a></li>
+      <li>Theme  <a href="https://github.com/zhwangart/hexo-theme-ocean" target="_blank" rel="noopener">Ocean</a></li>
+    </ul>
+  </div>
+</footer>
+
+</main>
+<aside class="sidebar">
+  <button class="navbar-toggle"></button>
+<nav class="navbar">
+  
+    <div class="logo">
+      <a href="/"><img src="/images/hexo.svg" alt="notecc"></a>
+    </div>
+  
+  <ul class="nav nav-main">
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/">Home</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/archives">Archives</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/gallery">Gallery</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/categories">categories</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/tags">Tags</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/about">About</a>
+      </li>
+    
+      <li class="nav-item">
+        <a class="nav-item-link" href="/links">Links</a>
+      </li>
+    
+    <li class="nav-item">
+      <a class="nav-item-link nav-item-search" title="Buscar">
+        <i class="fe fe-search"></i>
+        Buscar
+      </a>
+    </li>
+  </ul>
+</nav>
+<nav class="navbar navbar-bottom">
+  <ul class="nav">
+    <li class="nav-item">
+      <div class="totop" id="totop">
+  <i class="fe fe-rocket"></i>
+</div>
+    </li>
+    <li class="nav-item">
+      
+        <a class="nav-item-link" target="_blank" href="/atom.xml" title="RSS">
+          <i class="fe fe-feed"></i>
+        </a>
+      
+    </li>
+  </ul>
+</nav>
+<div class="search-form-wrap">
+  <div class="local-search local-search-plugin">
+  <input type="search" id="local-search-input" class="local-search-input" placeholder="Search...">
+  <div id="local-search-result" class="local-search-result"></div>
+</div>
+</div>
+</aside>
+
+<script src="/js/jquery-2.0.3.min.js"></script>
+
+
+<script src="/js/jquery.justifiedGallery.min.js"></script>
+
+
+<script src="/js/lazyload.min.js"></script>
+
+
+<script src="/js/busuanzi-2.3.pure.min.js"></script>
+
+
+  
+<script src="/fancybox/jquery.fancybox.min.js"></script>
+
+
+
+
+  
+<script src="/js/tocbot.min.js"></script>
+
+  <script>
+    // Tocbot_v4.7.0  http://tscanlin.github.io/tocbot/
+    tocbot.init({
+      tocSelector: '.tocbot',
+      contentSelector: '.article-entry',
+      headingSelector: 'h1, h2, h3, h4, h5, h6',
+      hasInnerContainers: true,
+      scrollSmooth: true,
+      positionFixedSelector: '.tocbot',
+      positionFixedClass: 'is-position-fixed',
+      fixedSidebarOffset: 'auto',
+    });
+  </script>
+
+
+
+<script src="/js/ocean.js"></script>
+
+
+</body>
+</html>
