@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    LeetCode LCP 06 拿硬币 |
+    Linux命令 |
     
     notecc</title>
   
@@ -33,7 +33,7 @@
 <body>
 <main class="content">
   <section class="outer">
-  <article id="post-Arithmetic/LeetCode LCP06" class="article article-type-post" itemscope
+  <article id="post-linux/Linux命令" class="article article-type-post" itemscope
     itemprop="blogPost" data-scroll-reveal>
 
     <div class="article-inner">
@@ -42,7 +42,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      LeetCode LCP 06 拿硬币
+      Linux命令
     </h1>
   
   
@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="fa fa-keyboard-o"></i>
             <span class="post-meta-item-text"> words count: </span>
-            <span class="post-count">163</span>
+            <span class="post-count">325</span>
         </span>
     </span>
 
@@ -79,12 +79,12 @@
 
         
         <div class="article-meta">
-            <a href="/posts/d93986a2.html" class="article-date">
-  <time datetime="2020-05-01T15:18:25.465Z" itemprop="datePublished">2020-05-01</time>
+            <a href="/posts/82734d8.html" class="article-date">
+  <time datetime="2020-11-24T15:04:33.000Z" itemprop="datePublished">2020-11-24</time>
 </a>
             
   <div class="article-category">
-    <a class="article-category-link" href="/categories/Airthmetic/">Airthmetic</a>
+    <a class="article-category-link" href="/categories/Code/">Code</a>
   </div>
 
         </div>
@@ -107,33 +107,84 @@
             
 
             
-            <h2 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h2><blockquote>
-<p>桌上有 n 堆力扣币，每堆的数量保存在数组 coins 中。我们每次可以选择任意一堆，拿走其中的一枚或者两枚，求拿完所有力扣币的最少次数。</p>
-</blockquote>
+            <p>基础Linux命令</p>
 <a id="more"></a>
-<pre><code>示例 1：
-    输入：[4,2,1]
-    输出：4
-    解释：第一堆力扣币最少需要拿 2 次，第二堆最少需要拿 1 次，第三堆最少需要拿 1 次，总共 4 次即可拿完。</code></pre><h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><pre class=" language-java"><code class="language-java">    <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">Lcp06</span> <span class="token punctuation">{</span>
-        <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">int</span> <span class="token function">solution</span><span class="token punctuation">(</span><span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> coins<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span> time <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-            <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">int</span> m <span class="token operator">:</span> coins<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                <span class="token keyword">int</span> n <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
-                <span class="token keyword">if</span> <span class="token punctuation">(</span>m <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">==</span> <span class="token number">0</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                    n <span class="token operator">=</span> m <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span> <span class="token keyword">else</span> <span class="token punctuation">{</span>
-                    n <span class="token operator">=</span> m <span class="token operator">/</span> <span class="token number">2</span> <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
-                <span class="token punctuation">}</span>
-                time <span class="token operator">+=</span> n<span class="token punctuation">;</span>
-            <span class="token punctuation">}</span>
-            <span class="token keyword">return</span> time<span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-
-        <span class="token keyword">public</span> <span class="token keyword">static</span> <span class="token keyword">void</span> <span class="token function">main</span><span class="token punctuation">(</span>String<span class="token punctuation">[</span><span class="token punctuation">]</span> args<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> a <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
-            System<span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token function">solution</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-        <span class="token punctuation">}</span>
-    <span class="token punctuation">}</span></code></pre>
+<h2 id="一、基础命令"><a href="#一、基础命令" class="headerlink" title="一、基础命令"></a>一、基础命令</h2><ol>
+<li>详细信息 <code>ls -l</code></li>
+<li>删除 rm(remove)<ul>
+<li>删除文件 <code>rm test.txt</code></li>
+<li>删除文件夹  <code>rm -r dictory</code></li>
+</ul>
+</li>
+<li>移动 mv(move)<ul>
+<li>改名 <code>mv file1.txt file2.txt</code></li>
+<li>移动 <code>mv workspace/space2/helloworld.txt workspace/space1/helloworld.txt</code></li>
+</ul>
+</li>
+<li>复制 cp(copy)<ul>
+<li>cp <code>workspace/space2/helloworld.txt workspace/space1/helloworld.txt</code></li>
+</ul>
+</li>
+<li>显示文件信息<ul>
+<li>显示全部 <code>cat file.txt</code></li>
+<li>查看开头部分<code>head file.txt -n 4</code></li>
+<li>查看结尾部分<code>tail file.txt -n 4</code></li>
+<li>暂时少量查看<code>less file.txt</code></li>
+</ul>
+</li>
+</ol>
+<h2 id="二、进阶命令"><a href="#二、进阶命令" class="headerlink" title="二、进阶命令"></a>二、进阶命令</h2><ol>
+<li>文件权限     </li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>u(author)</th>
+<th>g(group)</th>
+<th>o(other)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>rw-(可读可写)</td>
+<td>r-x(可读可运行)</td>
+<td>r--(可读)</td>
+</tr>
+</tbody></table>
+<!-- gaodafeng shegnxia shegnxiashegnxi youshoushizhi -->
+<blockquote>
+<p>r : 可读<br>w : 修改、删除<br>x : execute可执行</p>
+</blockquote>
+<ul>
+<li>author限制可读 <code>chmod u-r file.txt</code></li>
+<li>author增加可读 <code>chmod u+r file.txt</code></li>
+<li>group、other限制读<code>chmod go-r file.txt</code></li>
+<li>为所有用户增加可读 <code>chmod a-r file.txt</code></li>
+<li>为所有用户添加所有权限 <code>chmod 777 file.txt</code><blockquote>
+<p><code>rwx rwx rwx</code>二进制 <code>111 111 111</code>, 可利用二进制添加相应的权限</p>
+</blockquote>
+</li>
+</ul>
+<ol start="2">
+<li>检索grep</li>
+</ol>
+<ul>
+<li><code>grep keyWord file.txt</code></li>
+<li>配合正则表达式<ul>
+<li><code>grep ^KeyWord file.txt</code></li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li>统计wc<ul>
+<li>统计行数、单词数、字符数<code>wc file.txt</code></li>
+<li>统计byte数<code>wc -c file.txt</code></li>
+<li>统计字符数<code>wc -m file.txt</code></li>
+<li>统计最新的一行的长度<code>wc -l file.txt</code></li>
+<li>统计最长的一行的长度<code>wc -L file.txt</code></li>
+<li>统计单词个数 <code>wc -w file.txt</code></li>
+</ul>
+</li>
+</ol>
 
             
             <!-- 《添加版权声明 -->
@@ -151,16 +202,16 @@
       
       <br>
       <!-- <strong class="create-time">发布时间：</strong>
-      2020-05-01 
+      2020-11-24 
       <br> -->
       <!-- <strong class="update-time">最后更新：</strong>
-      2020-07-15
+      2020-11-24
       <br> -->
       <!-- <strong class="article-titles">本文标题：</strong>
-      <a href="https://notecc.ink/posts/d93986a2.html" title="LeetCode LCP 06 拿硬币" target="_blank">LeetCode LCP 06 拿硬币</a>
+      <a href="https://notecc.ink/posts/82734d8.html" title="Linux命令" target="_blank">Linux命令</a>
       <br> -->
       <strong class="article-url">本文链接：</strong>
-      <a href="https://notecc.ink/posts/d93986a2.html" title="LeetCode LCP 06 拿硬币" target="_blank">https://notecc.ink/posts/d93986a2.html</a>
+      <a href="https://notecc.ink/posts/82734d8.html" title="Linux命令" target="_blank">https://notecc.ink/posts/82734d8.html</a>
       <br>
       <strong class="copyright">版权声明：</strong>
       本作品采用
@@ -179,11 +230,11 @@
 
 
         <footer class="article-footer">
-            <a data-url="https://notecc.ink/posts/d93986a2.html" data-id="ckhzyecv5000m9o941e3e7by3" class="article-share-link">
+            <a data-url="https://notecc.ink/posts/82734d8.html" data-id="ckhzyecw2001x9o94e3xi25r3" class="article-share-link">
                 Compartir
             </a>
             
-  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/String/" rel="tag">String</a></li></ul>
+  <ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Linux/" rel="tag">Linux</a></li></ul>
 
         </footer>
 
@@ -193,19 +244,10 @@
     
   <nav class="article-nav">
     
-      <a href="/posts/5b0774c7.html" class="article-nav-link">
-        <strong class="article-nav-caption">Nuevo</strong>
-        <div class="article-nav-title">
-          
-            BigDecimal
-          
-        </div>
-      </a>
     
-    
-      <a href="/posts/885418c8.html" class="article-nav-link">
+      <a href="/posts/fe3b56f6.html" class="article-nav-link">
         <strong class="article-nav-caption">Viejo</strong>
-        <div class="article-nav-title">LeetCode i0104 回文排列</div>
+        <div class="article-nav-title">【转载】BlockingQueue</div>
       </a>
     
   </nav>
