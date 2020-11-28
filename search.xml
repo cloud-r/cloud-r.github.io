@@ -569,7 +569,6 @@ String s <span class="token operator">=</span> String<span class="token punctuat
 <span class="token keyword">double</span> d <span class="token operator">=</span> <span class="token number">127.0</span><span class="token punctuation">;</span>
 <span class="token keyword">int</span> i1 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Double</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">intValue</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 
-
 <span class="token comment" spellcheck="true">//取整</span>
 <span class="token keyword">int</span> i2 <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">ceil</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token keyword">int</span> i3 <span class="token operator">=</span> Math<span class="token punctuation">.</span><span class="token function">floor</span><span class="token punctuation">(</span>d<span class="token punctuation">)</span><span class="token punctuation">;</span>
