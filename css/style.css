@@ -895,7 +895,6 @@ body ::selection {
 }
 code {
   color: #30a2be;
-  base: rgba(78,240,233,0.42);
   margin: 2px;
   order: 1px solid #d6d6d6;
 }
