@@ -28,7 +28,7 @@
   
 <script src="/js/pace.min.js"></script>
 
-<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-tomorrow.css" type="text/css"></head>
+<meta name="generator" content="Hexo 4.2.0"><link rel="stylesheet" href="/css/prism-ghcolors.css" type="text/css"></head>
 
 <body>
 <main class="content">
@@ -134,8 +134,8 @@
 <span class="token keyword">show</span> <span class="token keyword">status</span><span class="token punctuation">;</span>    
 
 <span class="token comment" spellcheck="true">--显示创建创建数据库和表的MySql信息</span>
-<span class="token keyword">show</span> <span class="token keyword">create</span> <span class="token keyword">database</span><span class="token punctuation">;</span> 
-<span class="token keyword">show</span> <span class="token keyword">create</span> <span class="token keyword">table</span><span class="token punctuation">;</span> 
+<span class="token keyword">show</span> <span class="token keyword">create</span> <span class="token keyword">database</span> DBName<span class="token punctuation">;</span> 
+<span class="token keyword">show</span> <span class="token keyword">create</span> <span class="token keyword">table</span> TName<span class="token punctuation">;</span> 
 
 <span class="token comment" spellcheck="true">--用于显示服务器错误或警告信息</span>
 <span class="token keyword">show</span> <span class="token keyword">errors</span><span class="token punctuation">;</span> 
@@ -821,21 +821,21 @@
 <p><br><br> </p>
 <hr>
 <p><br><br></p>
-<h2 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h2><h3 id="插入完整的行"><a href="#插入完整的行" class="headerlink" title="插入完整的行"></a>插入完整的行</h3><pre class=" language-sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">into</span> customers <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">cc</span><span class="token punctuation">,</span><span class="token number">cc</span><span class="token variable">@foxmail</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h2><h3 id="插入完整的行"><a href="#插入完整的行" class="headerlink" title="插入完整的行"></a>插入完整的行</h3><pre class=" language-sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">into</span> customers <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">,</span><span class="token string">"cc"</span><span class="token punctuation">,</span><span class="token string">"cc@foxmail"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <blockquote>
 <p>对每个列<strong>必须</strong>提供一个值。<strong>如果某个列没有值，应该使用NULL值</strong>（假定表允许对该列指定空值）。<br>对于自增的字段，也需要设为NULL</p>
 </blockquote>
 <blockquote>
 <p>种语法很简单，但并不安全，<strong>应该尽量避免使用</strong>。不能保证下一次表结构变动后各个列 保持完全相同的次序</p>
 </blockquote>
-<pre class=" language-sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">into</span> customers<span class="token punctuation">(</span>cust_id<span class="token punctuation">,</span>cust_name<span class="token punctuation">,</span>cust_email<span class="token punctuation">)</span> <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">cc</span><span class="token punctuation">,</span><span class="token number">cc</span><span class="token variable">@foxmail</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">into</span> customers<span class="token punctuation">(</span>cust_id<span class="token punctuation">,</span>cust_name<span class="token punctuation">,</span>cust_email<span class="token punctuation">)</span> <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">,</span><span class="token string">"cc"</span><span class="token punctuation">,</span><span class="token string">"cc@foxmail"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <blockquote>
 <p>用VALUES 列表中的相应值填入列表中的对应项<br>对于自增字段，可以不出现</p>
 </blockquote>
 <blockquote>
 <p>如果数据检索是最重要的（通常是这样），则你可以通过在 INSERT和INTO之间添加关键字LOW_PRIORITY，指示MySQL 降低INSERT语句的优先级，如下所示：<br><code>INSERT LOW_PRIORITY INTO</code><br>这也适用于UPDATE和DELETE语句      </p>
 </blockquote>
-<h3 id="插入多行"><a href="#插入多行" class="headerlink" title="插入多行"></a>插入多行</h3><pre class=" language-sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">into</span> customers<span class="token punctuation">(</span>cust_id<span class="token punctuation">,</span>cust_name<span class="token punctuation">,</span>cust_email<span class="token punctuation">)</span> <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">cc1</span><span class="token punctuation">,</span><span class="token number">cc1</span><span class="token variable">@foxmail</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">cc2</span><span class="token punctuation">,</span><span class="token number">cc2</span><span class="token variable">@foxmail</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h3 id="插入多行"><a href="#插入多行" class="headerlink" title="插入多行"></a>插入多行</h3><pre class=" language-sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">into</span> customers<span class="token punctuation">(</span>cust_id<span class="token punctuation">,</span>cust_name<span class="token punctuation">,</span>cust_email<span class="token punctuation">)</span> <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">,</span><span class="token string">"cc"</span><span class="token punctuation">,</span><span class="token string">"cc@foxmail"</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">"2,cc2,cc2@foxmail"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <h3 id="插入检索出来的数据"><a href="#插入检索出来的数据" class="headerlink" title="插入检索出来的数据"></a>插入检索出来的数据</h3><p>合并新旧表</p>
 <pre class=" language-sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">into</span> cust_new<span class="token punctuation">(</span>cust_id<span class="token punctuation">,</span>
                       cust_name<span class="token punctuation">,</span>
@@ -904,6 +904,10 @@
 <li>根据需要，重新创建触发器、存储过程、索引和外键</li>
 </ul>
 <h4 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h4><pre class=" language-sql"><code class="language-sql"><span class="token keyword">DROP</span> <span class="token keyword">TABLE</span> customers<span class="token punctuation">;</span></code></pre>
+<h3 id="清除表数据"><a href="#清除表数据" class="headerlink" title="清除表数据"></a>清除表数据</h3><pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">--删除数据</span>
+<span class="token keyword">delete</span> <span class="token operator">*</span> <span class="token keyword">from</span> TName<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">--删除所有数据并重置自增序列</span>
+<span class="token keyword">truncate</span> <span class="token keyword">table</span> TName<span class="token punctuation">;</span> </code></pre>
 <h4 id="重命名表"><a href="#重命名表" class="headerlink" title="重命名表"></a>重命名表</h4><pre class=" language-sql"><code class="language-sql"><span class="token keyword">RENAME</span> <span class="token keyword">TABLE</span> customer1 <span class="token keyword">TO</span> customer2<span class="token punctuation">;</span></code></pre>
 <p><br><br> </p>
 <hr>
@@ -1479,7 +1483,7 @@ SHOW CREATE PROCEDURE STATUS LIKE &#39;ordertotal&#39;;</code></pre><p><br><br> 
       2020-07-23 
       <br> -->
       <!-- <strong class="update-time">最后更新：</strong>
-      2020-07-23
+      2020-12-09
       <br> -->
       <!-- <strong class="article-titles">本文标题：</strong>
       <a href="https://notecc.ink/posts/27b4eaba.html" title="《MySql必知必会》学习笔记" target="_blank">《MySql必知必会》学习笔记</a>

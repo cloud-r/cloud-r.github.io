@@ -6,6 +6,230 @@
     <content><![CDATA[<!-- > <b style="font-size:18px;color:#262626">喜欢美好事物</b> -->]]></content>
   </entry>
   <entry>
+    <title>数组复制</title>
+    <url>/posts/f135954a.html</url>
+    <content><![CDATA[<div align = "center">
+    <img src="https://i.loli.net/2020/12/05/h3a7d4mZgMJquIU.png" alt="数组复制" width="66%"/>
+</div>
+
+<a id="more"></a>
+
+<p>在谈数组复制之前，先回忆一下浅拷贝和深拷贝：    </p>
+<ul>
+<li>浅拷贝是指<strong>将引用复制给一个变量，即只是增加一个指针指向目标内存地址</strong>     </li>
+<li>深拷贝是指<strong>用新开辟的内存空间拷贝目标对象后，让变量指向这个新的内存地址</strong>       </li>
+</ul>
+<p>所以，浅拷贝后，<strong>如果新旧任一变量对应的对象发生变动时，另一变量也将变动</strong>，而深拷贝不会，因为指向的是不同的对象。   </p>
+<p>首先无论是对于基本类型数组还是对象类型数组，<strong>一般是不能够使用<code>=</code>直接复制的</strong>，因为这样只是将引用复制给变量，<strong>指向的还是同一个数组。</strong></p>
+<p>Java中对于基本类型的数组复制时，复制时因为没有对象的概念，所以不必考虑深拷贝还是浅拷贝，<strong>复制后都是两个变量指向不同的数组对象。</strong> 当然是实际上<strong>都是深拷贝</strong>。</p>
+<p>而对于对象类型的数组时，则<strong>都是浅拷贝</strong>，因为设计时，深拷贝的使用场景相对较少而且性能很差，如果的确需要深拷贝时，单独实现即可。</p>
+<blockquote>
+<p>特别的，对于String类，由于其不可变性，String类型的数组的拷贝可以理解为都是<strong>深拷贝</strong>。</p>
+</blockquote>
+<p>Java数组的复制有如下四种方式：</p>
+<h2 id="1-Object-clone"><a href="#1-Object-clone" class="headerlink" title="1. Object.clone()"></a>1. Object.clone()</h2><p>此方法是数组对象从Object类继承过来的。</p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr1 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr2 <span class="token operator">=</span> arr1<span class="token punctuation">.</span><span class="token function">clone</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="2-System-arraycopy"><a href="#2-System-arraycopy" class="headerlink" title="2. System.arraycopy()"></a>2. System.arraycopy()</h2><p>此方法内部调用的是一个native方法<br><code>public static native void arraycopy(Object src, int  srcPos,Object dest, int destPos, int length);</code><br>内部参数分别为 源数组、 拷贝开始位置、 目标数组、 粘贴开始位置、 拷贝个数</p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr3 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr4 <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">int</span><span class="token punctuation">[</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+    System<span class="token punctuation">.</span><span class="token function">arraycopy</span><span class="token punctuation">(</span>arr3<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> arr4<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> arr3<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="3-Arrays-copyOf"><a href="#3-Arrays-copyOf" class="headerlink" title="3. Arrays.copyOf()"></a>3. Arrays.copyOf()</h2><p>此方法内部也是调用了<code>System.arraycopy()</code>方法<br><code>public static int[] copyOf(int[] original, int newLength) {}</code>, 第一个参数为源数组，第二个参数为拷贝长度。</p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr5 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr6 <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">copyOf</span><span class="token punctuation">(</span>arr5<span class="token punctuation">,</span> arr5<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="4-Arrays-copyOfRange"><a href="#4-Arrays-copyOfRange" class="headerlink" title="4. Arrays.copyOfRange()"></a>4. Arrays.copyOfRange()</h2><p>内部同样也是调用了<code>System.arraycopy()</code>方法<br><code>public static int[] copyOfRange(int[] original, int from, int to){}</code>,第一个参数为源数组，第二个参数为拷贝起始位置，第三个参数为拷贝结束位置（不包含）。</p>
+<pre class=" language-java"><code class="language-java">    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr7 <span class="token operator">=</span> <span class="token punctuation">{</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">}</span><span class="token punctuation">;</span>
+    <span class="token keyword">int</span><span class="token punctuation">[</span><span class="token punctuation">]</span> arr8 <span class="token operator">=</span> Arrays<span class="token punctuation">.</span><span class="token function">copyOfRange</span><span class="token punctuation">(</span>arr7<span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">,</span> arr7<span class="token punctuation">.</span>length<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment" spellcheck="true">//左闭右开</span></code></pre>
+]]></content>
+      <categories>
+        <category>Code</category>
+      </categories>
+      <tags>
+        <tag>JavaSE</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Git</title>
+    <url>/posts/341ecd43.html</url>
+    <content><![CDATA[<!-- git:
+    --- : 未修改（提交过的）
+    +++ : 修改过的  （未提交过的）
+-->
+
+<div align = "center">
+    <img src="https://i.loli.net/2020/11/30/3YAsCch1igVaWyU.png" alt="Git组成" width="66%"/>
+</div>
+
+
+<p>Git是一个免费、开源的开源分布式版本控制系统，它可以高效快速地处理大小项目。它易于学习、占用空间极小性能而又极为出色，超越了像Subversion、CVS、Perforce和ClearCase这样的SCM(soft configuration management)工具，具有像便宜的本地分支、方便的存储区域和多个工作流这样的特性。</p>
+<a id="more"></a>
+
+<h2 id="一、Git简介"><a href="#一、Git简介" class="headerlink" title="一、Git简介"></a>一、Git简介</h2><p>Git是一个<strong>分布式系统</strong>，即不同于集中式系统将所有的版本存放在中央服务器里，而是每一个设备上都是一个完整的版本库，这样做的好处不但使你不必依赖于互联网与中央服务器进行版本控制，而且即使一个设备损坏，只要在其他设备中存在你的项目，也不会造成你的数据丢失事故。</p>
+<blockquote>
+<p>当然在实际使用过程中，会选择一台设备作为“中央服务器”（例如github服务器），但这样只是为了有利于你的数据存储、携带以及团队之间的合作开发，并不是真正的中央服务器。</p>
+</blockquote>
+<h3 id="1-1-Git的构成"><a href="#1-1-Git的构成" class="headerlink" title="1.1 Git的构成"></a>1.1 Git的构成</h3><div align = "center">
+    <img src="https://i.loli.net/2020/11/29/aphYo63R7glfOQM.png" alt="Git结构" width="80%"/>
+</div>
+
+<blockquote>
+<p><strong>workspace:工作区</strong><br><strong>index/stage:暂存区</strong><br><strong>repository:本地仓库</strong><br><strong>remote:远程仓库</strong>     </p>
+</blockquote>
+<ol>
+<li><strong>add</strong>:将文件从工作区添加到暂存区；</li>
+<li><strong>commit</strong>:将文件从暂存区提交到本地仓库；</li>
+<li><strong>push</strong>:将文件本地仓库同步到远程仓库；</li>
+<li><strong>pull</strong>: <code>git fetch</code> 和 <code>git merge</code> 的简写，从远程仓库获取代码并合并本地的版本；</li>
+<li><strong>fetch/clone</strong>:<code>clone</code>将项目克隆到本地，<code>fetch</code>更新远程仓库文件到本地仓库；</li>
+<li><strong>checkout</strong>:从版本库中恢复文件到工作区</li>
+</ol>
+<p>index和repository共同组成版本库（本地）</p>
+<h3 id="1-2-简单使用"><a href="#1-2-简单使用" class="headerlink" title="1.2 简单使用"></a>1.2 简单使用</h3><ul>
+<li>在当前目录下新建git仓库<pre class=" language-ini"><code class="language-ini">  git init</code></pre>
+</li>
+<li>添加文件到暂存区中<pre class=" language-ini"><code class="language-ini">  git add fileName</code></pre>
+</li>
+<li>提交文件到本地仓库中<pre class=" language-ini"><code class="language-ini">  git commit -m "commit information"</code></pre>
+</li>
+<li>推送本地仓库内容至远程仓库<pre class=" language-ini"><code class="language-ini">  git push origin master</code></pre>
+</li>
+</ul>
+<h2 id="二、版本控制"><a href="#二、版本控制" class="headerlink" title="二、版本控制"></a>二、版本控制</h2><p>利用Git我们可以对项目的文件进行存储、对文件的修改进行控制，是软件开发过程中必备的开发工具。   </p>
+<h3 id="2-1-差异比较"><a href="#2-1-差异比较" class="headerlink" title="2.1 差异比较"></a>2.1 差异比较</h3><p><strong>Git管理的是修改，而并非文件本身</strong>，我们可以利用<code>git status</code>我们可以比较workspace和index文件的差异，但是如何比较具体文件的差异时，我们需要用到<code>git diff</code> 命令</p>
+<ul>
+<li><code>git status</code>：比较workspace和index中的差异</li>
+<li><code>git diff (filename)</code>：比较workspace和index中文件的差异</li>
+<li><code>git diff --cached (filename)</code>、<code>git diff --staged (filename)</code>：比较index和上一次提交的差异</li>
+<li><code>git diff HEAD (filename)</code>：比较workspace和repository的差别<blockquote>
+<p>HEAD指向repository中最新的提交的版本</p>
+</blockquote>
+</li>
+<li><code>git diff --stat</code>：统计各个文件的具体变化情况worksapce和index</li>
+<li><code>git diff --numstat</code>：统计各个文件中变化的行数</li>
+</ul>
+<p><strong>git diff输出格式分析</strong><br>例如这里有一个文件gitDiffDemo.txt,有内容如下：</p>
+<pre class=" language-txt"><code class="language-txt">DragonBall1
+DragonBall2
+DragonBall3
+DragonBall4
+DragonBall5
+DragonBall6
+DragonBall7
+DragonBall8
+DragonBall9</code></pre>
+<p>将此文件提交至暂存区<code>$ git add gitDiffDemo.txt</code>后，将内容修改如下：</p>
+<pre class=" language-txt"><code class="language-txt">DragonBall1
+DragonBall2
+DragonBall3
+DragonBall4
+DragonBall5s 
+DragonBall6
+DragonBall7
+DragonBall8
+DragonBall9 </code></pre>
+<p>此时使用<code>$ git diff gitDiffDemo.txt</code>查看异同：</p>
+<pre class=" language-ini"><code class="language-ini">$ git diff gitDiffDemo.txt 
+diff --git a/gitDiffDemo.txt b/gitDiffDemo.txt
+index 9da8892..fa04dee 100644
+--- a/gitDiffDemo.txt
++++ b/gitDiffDemo.txt
+@@ -2,7 +2,7 @@ DragonBall1
+ DragonBall2
+ DragonBall3
+ DragonBall4
+-DragonBall5 
++DragonBall5s 
+ DragonBall6
+ DragonBall7
+ DragonBall8</code></pre>
+<p>让我们来逐行来看输出内容</p>
+<pre class=" language-ini"><code class="language-ini">index 9da8892..fa04dee 100644</code></pre>
+<p>9da8892..fa04dee表示暂存区具体文件（此处指当前文件夹下的gitDiffDemo.txt）的哈希值，100644表示对象模式，100表示普通文件(regular file)，644表示文件操作权限，即<code>rw-r--r--</code></p>
+<blockquote>
+<p>101: symbolic link 110: git link </p>
+</blockquote>
+<pre class=" language-ini"><code class="language-ini">--- a/gitDiffDemo.txt
++++ b/gitDiffDemo.txt</code></pre>
+<p>---表示变化前的版本（提交过的）<br>+++表示变化后的版本（修改过的）</p>
+<pre class=" language-ini"><code class="language-ini">@@ -2,7 +2,7 @@ DragonBall1</code></pre>
+<p>一对<code>@@</code>表示一个差异小结，一个差异小结的范围为<strong>变更位置上下3行</strong>，即一般为7行，上下行内容不足或两个差异点距离过近这个范围可能会缩小或变大。<br><code>-2,7</code>: 表示变化前的文件中，差异小结范围为第2行开始连续7行<br><code>+2,7</code>: 表示变化后的文件中，差异小结范围为第2行开始连续7行        </p>
+<p>“DragonBall1”内容为差异小结范围上一行，不用理会。 </p>
+<h3 id="2-2-快照Id"><a href="#2-2-快照Id" class="headerlink" title="2.2 快照Id"></a>2.2 快照Id</h3><p>在Git中，针对每一次commit都会生成相应的快照，即在Git系统中我们可以选择恢复某一个时间点上的版本快照以此达到版本控制的目的，使用<code>git log</code>命令查看commit历史</p>
+<pre class=" language-ini"><code class="language-ini">commit 7361c5145897d215c7bd9e9cf5a13c59f5908e7d
+Author: WyattWang &lt;cc7722@foxmail.com>
+Date:   Sun Nov 29 20:14:41 2020 +0800
+
+    git tracks changes
+
+commit 4dbe0ff1cd9ade95b0ca83e22ac6dc27619b1cd9
+Author: WyattWang &lt;cc7722@foxmail.com>
+Date:   Sun Nov 29 16:38:14 2020 +0800
+
+    append GPL
+
+commit 1076977642fedc84ef89be1a840850b991e434c7
+Author: WyattWang &lt;cc7722@foxmail.com>
+Date:   Sun Nov 29 16:17:24 2020 +0800
+
+    add distributed
+
+commit a2fdd707b60ff78bada28410dc0ca8b6dd027e43
+Author: WyattWang &lt;cc7722@foxmail.com>
+Date:   Sun Nov 29 14:11:51 2020 +0800
+
+    wrote a readme file
+</code></pre>
+<p>如上所示，每一小段commit信息从上往下包含了commit id、提交者信息、commit时间和commit信息。<br>如果只是想查看commit id和commit信息，加上<code>--pretty=oneline</code>参数即可</p>
+<pre class=" language-ini"><code class="language-ini">$ git log --pretty<span class="token attr-value"><span class="token punctuation">=</span>oneline</span>
+7361c5145897d215c7bd9e9cf5a13c59f5908e7d git tracks changes
+4dbe0ff1cd9ade95b0ca83e22ac6dc27619b1cd9 append GPL
+1076977642fedc84ef89be1a840850b991e434c7 add distributed
+a2fdd707b60ff78bada28410dc0ca8b6dd027e43 wrote a readme file</code></pre>
+<h3 id="2-3-版本回退"><a href="#2-3-版本回退" class="headerlink" title="2.3 版本回退"></a>2.3 版本回退</h3><p>在Git中，<code>HEAD</code>表示当前版本，上一个版本为<code>HEAD^</code>或<code>HEAD~1</code>，上上一个版本为<code>HEAD^^</code>或<code>HEAD~2</code>，上上个版本为<code>HEAD^^^</code>或<code>HEAD~3</code>……</p>
+<p>使用<code>git reset</code>命令可以让版本进行回退, 例如回退到上一版本</p>
+<pre class=" language-ini"><code class="language-ini">$ git reset --hard HEAD^ 
+$ git reset --hard HEAD~1 </code></pre>
+<p>回退到指定commit id的版本</p>
+<pre class=" language-ini"><code class="language-ini">$ git reset --hard 4dbe0ff1cd9ade95b0ca83e22ac6dc27619b1cd9</code></pre>
+<p>如果从版本B回退到之前的版本A，在A之后的提交信息将会在git log中<strong>查询不到</strong>commit id,但是如果在当前命令行窗口还可以看到版本B的commit id，或者使用<code>git reflog</code>可以看到版本变动的过程及其id</p>
+<pre class=" language-ini"><code class="language-ini">$ git reflog
+cde5cd3 HEAD@{0}: reset: moving to cde5cd3cf18629fbc9d9f033447478b90355224c
+4dbe0ff HEAD@{1}: reset: moving to HEAD^^
+d5c7d80 HEAD@{2}: reset: moving to HEAD~1
+cde5cd3 HEAD@{3}: commit: 提交2
+d5c7d80 HEAD@{4}: commit: 提交
+7361c51 HEAD@{5}: commit: git tracks changes
+4dbe0ff HEAD@{6}: reset: moving to 4dbe0ff
+a2fdd70 HEAD@{7}: reset: moving to a2fdd70
+4dbe0ff HEAD@{8}: reset: moving to 4dbe0ff1cd9ade95b0ca83e22ac6dc27619b1cd9
+1076977 HEAD@{9}: reset: moving to HEAD^
+4dbe0ff HEAD@{10}: commit: append GPL
+1076977 HEAD@{11}: commit: add distributed
+a2fdd70 HEAD@{12}: commit (initial): wrote a readme file</code></pre>
+<h3 id="2-4-撤销修改"><a href="#2-4-撤销修改" class="headerlink" title="2.4 撤销修改"></a>2.4 撤销修改</h3><p>如果需要<strong>撤销在workspace中的修改</strong>，可以使用<code>git checkout -- filename</code>命令(注意文件名前的空格)</p>
+<pre class=" language-ini"><code class="language-ini">$ git checkout -- readme.md </code></pre>
+<ul>
+<li>如果readme.md自修改后第一次放进index中，则git checkout后版本和repository中的版本是一致的</li>
+<li>如果readme.md之前放进过index中，则git checkout后版本和前一次添加到index中的版本保持一致       </li>
+</ul>
+<p>即<code>git checkout</code>后的版本和最新的<code>git add</code>或<code>git commit</code>的文件保持一致<br><br></p>
+<p>如果需要<strong>撤销workspace添加到index中的修改</strong>，则可已使用<code>git reset HEAD filename</code>命令</p>
+<pre class=" language-ini"><code class="language-ini">$ git reset HEAD readme.md</code></pre>
+<p><code>git reset</code>不仅可以回退版本，还可以回退index中的修改，即将repository中最新的版本<code>HEAD</code>替换掉index中修改过的文件。</p>
+<h3 id="2-5-删除文件"><a href="#2-5-删除文件" class="headerlink" title="2.5 删除文件"></a>2.5 删除文件</h3><p>仅在文件管理器中删除文件<code>rm filename</code>，会出现workspace和版本库（index和repository）版本不一致的问题，这时候还需要使用<code>git rm filename</code>来使Git停止对文件的track，然后commit</p>
+<pre class=" language-ini"><code class="language-ini">$ rm readme.md
+$ git rm readme.md
+$ git commit -m "rm readme.md"</code></pre>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.cnblogs.com/ims-/p/9747333.html" target="_blank" rel="noopener">https://www.cnblogs.com/ims-/p/9747333.html</a></p>
+]]></content>
+      <categories>
+        <category>Tools</category>
+      </categories>
+      <tags>
+        <tag>SCM</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Linux命令</title>
     <url>/posts/82734d8.html</url>
     <content><![CDATA[<p>基础Linux命令</p>
@@ -920,8 +1144,8 @@ System<span class="token punctuation">.</span>out<span class="token punctuation"
 <span class="token keyword">show</span> <span class="token keyword">status</span><span class="token punctuation">;</span>    
 
 <span class="token comment" spellcheck="true">--显示创建创建数据库和表的MySql信息</span>
-<span class="token keyword">show</span> <span class="token keyword">create</span> <span class="token keyword">database</span><span class="token punctuation">;</span> 
-<span class="token keyword">show</span> <span class="token keyword">create</span> <span class="token keyword">table</span><span class="token punctuation">;</span> 
+<span class="token keyword">show</span> <span class="token keyword">create</span> <span class="token keyword">database</span> DBName<span class="token punctuation">;</span> 
+<span class="token keyword">show</span> <span class="token keyword">create</span> <span class="token keyword">table</span> TName<span class="token punctuation">;</span> 
 
 <span class="token comment" spellcheck="true">--用于显示服务器错误或警告信息</span>
 <span class="token keyword">show</span> <span class="token keyword">errors</span><span class="token punctuation">;</span> 
@@ -1607,21 +1831,21 @@ System<span class="token punctuation">.</span>out<span class="token punctuation"
 <p><br><br> </p>
 <hr>
 <p><br><br></p>
-<h2 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h2><h3 id="插入完整的行"><a href="#插入完整的行" class="headerlink" title="插入完整的行"></a>插入完整的行</h3><pre class=" language-sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">into</span> customers <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">cc</span><span class="token punctuation">,</span><span class="token number">cc</span><span class="token variable">@foxmail</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h2 id="插入数据"><a href="#插入数据" class="headerlink" title="插入数据"></a>插入数据</h2><h3 id="插入完整的行"><a href="#插入完整的行" class="headerlink" title="插入完整的行"></a>插入完整的行</h3><pre class=" language-sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">into</span> customers <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">,</span><span class="token string">"cc"</span><span class="token punctuation">,</span><span class="token string">"cc@foxmail"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <blockquote>
 <p>对每个列<strong>必须</strong>提供一个值。<strong>如果某个列没有值，应该使用NULL值</strong>（假定表允许对该列指定空值）。<br>对于自增的字段，也需要设为NULL</p>
 </blockquote>
 <blockquote>
 <p>种语法很简单，但并不安全，<strong>应该尽量避免使用</strong>。不能保证下一次表结构变动后各个列 保持完全相同的次序</p>
 </blockquote>
-<pre class=" language-sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">into</span> customers<span class="token punctuation">(</span>cust_id<span class="token punctuation">,</span>cust_name<span class="token punctuation">,</span>cust_email<span class="token punctuation">)</span> <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">cc</span><span class="token punctuation">,</span><span class="token number">cc</span><span class="token variable">@foxmail</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<pre class=" language-sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">into</span> customers<span class="token punctuation">(</span>cust_id<span class="token punctuation">,</span>cust_name<span class="token punctuation">,</span>cust_email<span class="token punctuation">)</span> <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">,</span><span class="token string">"cc"</span><span class="token punctuation">,</span><span class="token string">"cc@foxmail"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <blockquote>
 <p>用VALUES 列表中的相应值填入列表中的对应项<br>对于自增字段，可以不出现</p>
 </blockquote>
 <blockquote>
 <p>如果数据检索是最重要的（通常是这样），则你可以通过在 INSERT和INTO之间添加关键字LOW_PRIORITY，指示MySQL 降低INSERT语句的优先级，如下所示：<br><code>INSERT LOW_PRIORITY INTO</code><br>这也适用于UPDATE和DELETE语句      </p>
 </blockquote>
-<h3 id="插入多行"><a href="#插入多行" class="headerlink" title="插入多行"></a>插入多行</h3><pre class=" language-sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">into</span> customers<span class="token punctuation">(</span>cust_id<span class="token punctuation">,</span>cust_name<span class="token punctuation">,</span>cust_email<span class="token punctuation">)</span> <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">cc1</span><span class="token punctuation">,</span><span class="token number">cc1</span><span class="token variable">@foxmail</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">cc2</span><span class="token punctuation">,</span><span class="token number">cc2</span><span class="token variable">@foxmail</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<h3 id="插入多行"><a href="#插入多行" class="headerlink" title="插入多行"></a>插入多行</h3><pre class=" language-sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">into</span> customers<span class="token punctuation">(</span>cust_id<span class="token punctuation">,</span>cust_name<span class="token punctuation">,</span>cust_email<span class="token punctuation">)</span> <span class="token keyword">VALUES</span> <span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">,</span><span class="token string">"cc"</span><span class="token punctuation">,</span><span class="token string">"cc@foxmail"</span><span class="token punctuation">)</span><span class="token punctuation">,</span><span class="token punctuation">(</span><span class="token string">"2,cc2,cc2@foxmail"</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
 <h3 id="插入检索出来的数据"><a href="#插入检索出来的数据" class="headerlink" title="插入检索出来的数据"></a>插入检索出来的数据</h3><p>合并新旧表</p>
 <pre class=" language-sql"><code class="language-sql"><span class="token keyword">INSERT</span> <span class="token keyword">into</span> cust_new<span class="token punctuation">(</span>cust_id<span class="token punctuation">,</span>
                       cust_name<span class="token punctuation">,</span>
@@ -1690,6 +1914,10 @@ System<span class="token punctuation">.</span>out<span class="token punctuation"
 <li>根据需要，重新创建触发器、存储过程、索引和外键</li>
 </ul>
 <h4 id="删除表"><a href="#删除表" class="headerlink" title="删除表"></a>删除表</h4><pre class=" language-sql"><code class="language-sql"><span class="token keyword">DROP</span> <span class="token keyword">TABLE</span> customers<span class="token punctuation">;</span></code></pre>
+<h3 id="清除表数据"><a href="#清除表数据" class="headerlink" title="清除表数据"></a>清除表数据</h3><pre class=" language-sql"><code class="language-sql"><span class="token comment" spellcheck="true">--删除数据</span>
+<span class="token keyword">delete</span> <span class="token operator">*</span> <span class="token keyword">from</span> TName<span class="token punctuation">;</span>
+<span class="token comment" spellcheck="true">--删除所有数据并重置自增序列</span>
+<span class="token keyword">truncate</span> <span class="token keyword">table</span> TName<span class="token punctuation">;</span> </code></pre>
 <h4 id="重命名表"><a href="#重命名表" class="headerlink" title="重命名表"></a>重命名表</h4><pre class=" language-sql"><code class="language-sql"><span class="token keyword">RENAME</span> <span class="token keyword">TABLE</span> customer1 <span class="token keyword">TO</span> customer2<span class="token punctuation">;</span></code></pre>
 <p><br><br> </p>
 <hr>
