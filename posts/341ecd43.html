@@ -33,7 +33,7 @@
 <body>
 <main class="content">
   <section class="outer">
-  <article id="post-tools/git" class="article article-type-post" itemscope
+  <article id="post-tools/Git" class="article article-type-post" itemscope
     itemprop="blogPost" data-scroll-reveal>
 
     <div class="article-inner">
@@ -58,7 +58,7 @@
         <span class="post-meta-item-icon">
             <i class="fa fa-keyboard-o"></i>
             <span class="post-meta-item-text"> words count: </span>
-            <span class="post-count">1.8k</span>
+            <span class="post-count">2.6k</span>
         </span>
     </span>
 
@@ -67,7 +67,7 @@
         <span class="post-meta-item-icon">
             <i class="fa fa-hourglass-half"></i>
             <span class="post-meta-item-text"> expected cost: </span>
-            <span class="post-count">7 minutes </span>
+            <span class="post-count">10 minutes </span>
         </span>
     </span>
 </div>
@@ -262,6 +262,15 @@ a2fdd70 HEAD@{7}: reset: moving to a2fdd70
 4dbe0ff HEAD@{10}: commit: append GPL
 1076977 HEAD@{11}: commit: add distributed
 a2fdd70 HEAD@{12}: commit (initial): wrote a readme file</code></pre>
+<p>在Git中除了使用<code>git reset</code>命令以外，还可以使用<code>git revert</code>命令来达到类似的的效果，但这两者还是有所区别：         </p>
+<ul>
+<li><code>git reset</code>是将版本<strong>回退</strong>到之前的版本，但那个版本之后的版本将不会被保留</li>
+<li><code>git revert</code>是将指定版本<strong>反做</strong>，例如按照时间线的版本为a-&gt;b-&gt;c, 当HEAD为版本c时反做版本b，即在提交版本b时，添加了file1.txt，则反做就是执行相反操作，删除file1.txt<blockquote>
+<p>如果<strong>在一个文件中</strong>多次修改内容并且进行提交，反做<strong>非最后一次提交</strong>时，会提示发生冲突，需要手动解决</p>
+</blockquote>
+</li>
+</ul>
+<p>➦<a href="https://blog.csdn.net/yxlshk/article/details/79944535" target="_blank" rel="noopener">Git恢复之前版本的两种方法reset、revert（图文详解）</a></p>
 <h3 id="2-4-撤销修改"><a href="#2-4-撤销修改" class="headerlink" title="2.4 撤销修改"></a>2.4 撤销修改</h3><p>如果需要<strong>撤销在workspace中的修改</strong>，可以使用<code>git checkout -- filename</code>命令(注意文件名前的空格)</p>
 <pre class=" language-ini"><code class="language-ini">$ git checkout -- readme.md </code></pre>
 <ul>
@@ -272,11 +281,34 @@ a2fdd70 HEAD@{12}: commit (initial): wrote a readme file</code></pre>
 <p>如果需要<strong>撤销workspace添加到index中的修改</strong>，则可已使用<code>git reset HEAD filename</code>命令</p>
 <pre class=" language-ini"><code class="language-ini">$ git reset HEAD readme.md</code></pre>
 <p><code>git reset</code>不仅可以回退版本，还可以回退index中的修改，即将repository中最新的版本<code>HEAD</code>替换掉index中修改过的文件。</p>
-<h3 id="2-5-删除文件"><a href="#2-5-删除文件" class="headerlink" title="2.5 删除文件"></a>2.5 删除文件</h3><p>仅在文件管理器中删除文件<code>rm filename</code>，会出现workspace和版本库（index和repository）版本不一致的问题，这时候还需要使用<code>git rm filename</code>来使Git停止对文件的track，然后commit</p>
-<pre class=" language-ini"><code class="language-ini">$ rm readme.md
-$ git rm readme.md
+<h3 id="2-5-删除文件"><a href="#2-5-删除文件" class="headerlink" title="2.5 删除文件"></a>2.5 删除文件</h3><p>如果工作区中的文件和版本库中的<strong>版本一致</strong>，使用<code>git rm &lt;filename&gt;</code>命令删除工作区文件，并且将这次删除放入暂存区</p>
+<pre class=" language-ini"><code class="language-ini">$ git rm readme.md
 $ git commit -m "rm readme.md"</code></pre>
+<p>如果在workspace中修改过文件，无论有没有添加到index中，即<strong>工作区和版本库中文件版本不一致</strong>，单纯使用<code>git rm</code>命令会出现错误，此时需要加上参数<code>-f</code>，即使用<code>git rm -f &lt;filename&gt;</code>进行删除</p>
+<pre class=" language-ini"><code class="language-ini">$ git rm -f readme.md</code></pre>
+<p>如果只是想删除版本库中的文件，<strong>但保留工作区文件</strong>，则使用<code>git rm --cached &lt;filename&gt;</code>可以删除暂存区文件，并将这次删除的操作添加到暂存区中，即此时该文件处于<em>untracked</em>状态</p>
+<pre class=" language-ini"><code class="language-ini">$ git rm --cached readme.md
+$ git commit -m "untrack reame.md"</code></pre>
+<h2 id="三、远程仓库"><a href="#三、远程仓库" class="headerlink" title="三、远程仓库"></a>三、远程仓库</h2><p>虽然Git是一个<strong>分布式</strong>的版本控制工具，并不存在着中央服务器，但是在实际使用中还是存在一个远程仓库，方便用于同步代码或协同开发的。    </p>
+<h3 id="3-1-添加远程仓库"><a href="#3-1-添加远程仓库" class="headerlink" title="3.1 添加远程仓库"></a>3.1 添加远程仓库</h3><p>使用<code>git remote add &lt;仓库名称&gt; &lt;仓库地址&gt;</code>命令可以建立本地仓库和远程仓库的连接</p>
+<pre class=" language-ini"><code class="language-ini">$ git remote add origin git@github.com:server-name/learn-git.git</code></pre>
+<p>添加完成后可以使用<code>git remote -v</code>查看已关联的远程仓库信息</p>
+<pre class=" language-ini"><code class="language-ini">$ git remote -v
+origin    git@gitee.com:server-name/learn-git.git (fetch)
+origin    git@gitee.com:server-name/learn-git.git (push)</code></pre>
+<p>以及可以使用<code>git remote rename &lt;old name&gt; &lt;new name&gt;</code>来更新远程仓库名称和使用<code>git remote remove &lt;name&gt;</code>来移除远程仓库名称</p>
+<h3 id="3-2-推送文件"><a href="#3-2-推送文件" class="headerlink" title="3.2 推送文件"></a>3.2 推送文件</h3><p>使用<code>git push &lt;远程主机名&gt; &lt;本地分支名&gt;:&lt;远程分支名&gt;</code>命令可以推送本地仓库文件至远程仓库，特别的使用加上参数<code>-u</code>，可以给推送的分支加上（跟踪）引用，即使当前分子和多个远程主机存在关联，后面也可以不加任何参数使用git push推送到和本次相同的远程仓库中。</p>
+<pre class=" language-ini"><code class="language-ini">$ git push -u origin master #第一次
+$ git push                  #后续可简写</code></pre>
+<blockquote>
+<p>如果远程仓库地址为ssh url，则需要提前配置当前主机和远程主机的ssh公私钥</p>
+</blockquote>
+<p>特别的，使用<code>git push -f origin master</code>命令将本地文件推送到远程，并<strong>强制覆盖</strong>，使用时需要特别小心，<strong>谨慎使用</strong>。</p>
+<h3 id="3-3-代码克隆"><a href="#3-3-代码克隆" class="headerlink" title="3.3 代码克隆"></a>3.3 代码克隆</h3><p>使用<code>git clone &lt;远程仓库地址&gt;</code>命令可以将远程仓库的文件克隆到本地</p>
+<pre class=" language-ini"><code class="language-ini">$ git clone git@gitee.com:server-name/learn-git.git</code></pre>
 <h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://www.cnblogs.com/ims-/p/9747333.html" target="_blank" rel="noopener">https://www.cnblogs.com/ims-/p/9747333.html</a></p>
+<p><a href="https://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html" target="_blank" rel="noopener">https://www.ruanyifeng.com/blog/2015/12/git-cheat-sheet.html</a></p>
+<p><a href="https://blog.csdn.net/qq_42780289/article/details/98353792" target="_blank" rel="noopener">https://blog.csdn.net/qq_42780289/article/details/98353792</a></p>
 
             
             <!-- 《添加版权声明 -->
@@ -297,7 +329,7 @@ $ git commit -m "rm readme.md"</code></pre>
       2020-11-29 
       <br> -->
       <!-- <strong class="update-time">最后更新：</strong>
-      2020-12-11
+      2020-12-15
       <br> -->
       <!-- <strong class="article-titles">本文标题：</strong>
       <a href="https://notecc.ink/posts/341ecd43.html" title="Git" target="_blank">Git</a>
@@ -322,7 +354,7 @@ $ git commit -m "rm readme.md"</code></pre>
 
 
         <footer class="article-footer">
-            <a data-url="https://notecc.ink/posts/341ecd43.html" data-id="ckik6brdd002gxw948ff4g74c" class="article-share-link">
+            <a data-url="https://notecc.ink/posts/341ecd43.html" data-id="ckix33n0s0028r494a7pc28op" class="article-share-link">
                 Compartir
             </a>
             

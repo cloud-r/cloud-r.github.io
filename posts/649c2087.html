@@ -124,13 +124,13 @@
         <span class="token keyword">int</span> start <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span>
         <span class="token keyword">int</span> end <span class="token operator">=</span> arr<span class="token punctuation">.</span>length <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
         <span class="token keyword">while</span> <span class="token punctuation">(</span>start <span class="token operator">&lt;=</span> end<span class="token punctuation">)</span> <span class="token punctuation">{</span>
-            <span class="token keyword">int</span> middle <span class="token operator">=</span> <span class="token punctuation">(</span>start <span class="token operator">+</span> end<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
-            <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">&lt;</span> arr<span class="token punctuation">[</span>middle<span class="token punctuation">]</span><span class="token punctuation">)</span>
-                end <span class="token operator">=</span> middle <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
-            <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">></span> arr<span class="token punctuation">[</span>middle<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
-                start <span class="token operator">=</span> middle <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token keyword">int</span> mid <span class="token operator">=</span> <span class="token punctuation">(</span>start <span class="token operator">+</span> end<span class="token punctuation">)</span> <span class="token operator">/</span> <span class="token number">2</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">&lt;</span> arr<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span>
+                end <span class="token operator">=</span> mid <span class="token operator">-</span> <span class="token number">1</span><span class="token punctuation">;</span>
+            <span class="token keyword">else</span> <span class="token keyword">if</span> <span class="token punctuation">(</span>key <span class="token operator">></span> arr<span class="token punctuation">[</span>mid<span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                start <span class="token operator">=</span> mid <span class="token operator">+</span> <span class="token number">1</span><span class="token punctuation">;</span>
             <span class="token punctuation">}</span> <span class="token keyword">else</span>
-                <span class="token keyword">return</span> middle<span class="token punctuation">;</span>
+                <span class="token keyword">return</span> mid<span class="token punctuation">;</span>
         <span class="token punctuation">}</span>
         <span class="token keyword">return</span> <span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">;</span>
     <span class="token punctuation">}</span>
@@ -165,7 +165,7 @@
       2020-04-22 
       <br> -->
       <!-- <strong class="update-time">最后更新：</strong>
-      2020-05-01
+      2020-12-12
       <br> -->
       <!-- <strong class="article-titles">本文标题：</strong>
       <a href="https://notecc.ink/posts/649c2087.html" title="二分法" target="_blank">二分法</a>
@@ -190,7 +190,7 @@
 
 
         <footer class="article-footer">
-            <a data-url="https://notecc.ink/posts/649c2087.html" data-id="ckik6brc90012xw949qe608x8" class="article-share-link">
+            <a data-url="https://notecc.ink/posts/649c2087.html" data-id="ckix33mzx000zr494e3m9c4d4" class="article-share-link">
                 Compartir
             </a>
             

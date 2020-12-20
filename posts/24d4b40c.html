@@ -11,7 +11,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <title>
-    我有我爱我 |
+    test/test |
     
     notecc</title>
   
@@ -33,7 +33,7 @@
 <body>
 <main class="content">
   <section class="outer">
-  <article id="post-lyrics/我有我爱我" class="article article-type-post" itemscope
+  <article id="post-test/test" class="article article-type-post" itemscope
     itemprop="blogPost" data-scroll-reveal>
 
     <div class="article-inner">
@@ -42,7 +42,7 @@
             
   
     <h1 class="article-title" itemprop="name">
-      我有我爱我
+      test/test
     </h1>
   
   
@@ -60,19 +60,17 @@
 
         
         <div class="article-meta">
-            <a href="/posts/989dd112.html" class="article-date">
-  <time datetime="2020-05-04T05:45:10.000Z" itemprop="datePublished">2020-05-04</time>
+            <a href="/posts/24d4b40c.html" class="article-date">
+  <time datetime="2020-12-14T07:15:55.806Z" itemprop="datePublished">2020-12-14</time>
 </a>
             
-  <div class="article-category">
-    <a class="article-category-link" href="/categories/Lyrics/">Lyrics</a>
-  </div>
-
         </div>
         
 
         
         
+    <div class="tocbot"></div>
+
 
 
 
@@ -84,21 +82,52 @@
 
 
             
-  <div class="article-gallery">
-    <div class="article-gallery-photos">
-      
-        
-          <img src="https://i.loli.net/2020/05/04/pgk9PZ6aNiRESMz.jpg" itemprop="image">
-        
-      
-    </div>
-  </div>
-
 
             
-            <div style="margin-left:30px">
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=330 height=86 src="//music.163.com/outchain/player?type=2&id=421885447&auto=0&height=66"></iframe>
-</div>
+            <p>test Table</p>
+<a id="more"></a>
+<h1 id="Table-of-Contents"><a href="#Table-of-Contents" class="headerlink" title="Table of Contents"></a>Table of Contents</h1><ul>
+<li><a href="##overview">Overview</a></li>
+<li><a href="##prerequisite">Prerequisite</a></li>
+<li><a href="##test-1-default-command-with-jdk-x64">Test 1: default command with JDK-x64</a></li>
+<li><a href="#test-2-optimized-command-with-jdk-x64">Test 2: optimized command with JDK-x64</a></li>
+<li><a href="#test-3-default-command-with-jdk-aarch64">Test 3: default command with JDK-aarch64</a></li>
+<li><a href="#test-4-optimized-command-with-jdk-aarch64">Test 4: optimized command with JDK-aarch64</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+<h2 id="Overview"><a href="#Overview" class="headerlink" title="Overview"></a>Overview</h2><p>This article lists the tests I ran in <a href="https://youtu.be/o6q8zPmfVLU" target="_blank" rel="noopener">my YouTube video</a>,  where I compared the compilation speed of my M1 Macbook Air vs my Intel Core i9 Macbook Pro.</p>
+<p>Test 1 and Test 2, which run on JDK-x64, were done on <em>both</em> computers.</p>
+<p>Test 3 and Test 4, which run on JDK-aarch64, were done <em>only</em> on my M1 Macbook Air.</p>
+<h2 id="Prerequisite"><a href="#Prerequisite" class="headerlink" title="Prerequisite"></a>Prerequisite</h2><p>Before you run the tests, make sure you have JDK and Maven installed.</p>
+<p>To download Zulu JDK-aarch64, check out <a href="https://www.azul.com/downloads/zulu-community/?os=macos&architecture=arm-64-bit&package=jdk" target="_blank" rel="noopener">this page</a>. On my Mac, the JDK is installed under:</p>
+<pre><code>/Library/Java/JavaVirtualMachines/zulu-16.jdk</code></pre><p>Next, checkout a Java repo, like “Apache Commons Lang”.</p>
+<pre><code>cd
+mkdir -p src/apache
+cd src/apache
+git clone https://github.com/apache/commons-lang.git
+cd commons-lang</code></pre><h2 id="Test-1-default-command-with-JDK-x64"><a href="#Test-1-default-command-with-JDK-x64" class="headerlink" title="Test 1: default command with JDK-x64"></a>Test 1: default command with JDK-x64</h2><p>I ran this command on <em>both</em> my M1 Macbook Air and my i9 Macbook Pro.</p>
+<p>Here I assume your <code>$JAVA_HOME</code> points to JDK-x64.</p>
+<p>Run the following to compile the repo.</p>
+<pre><code>mvn clean compile</code></pre><p>If you get the <code>Too many files with unapproved license</code> error, try the following to get around it:</p>
+<pre><code>mvn clean -Drat.skip=true compile</code></pre><p>You will see how long the compilation takes from the output of the command.</p>
+<h2 id="Test-2-optimized-command-with-JDK-x64"><a href="#Test-2-optimized-command-with-JDK-x64" class="headerlink" title="Test 2: optimized command with JDK-x64"></a>Test 2: optimized command with JDK-x64</h2><p>I ran this command on <em>both</em> my M1 Macbook Air and my i9 Macbook Pro.</p>
+<pre><code>MAVEN_OPTS=&quot;-XX:+TieredCompilation -XX:TieredStopAtLevel=1&quot; \
+mvn clean -T 1C -Drat.skip=true compile -offline</code></pre><p>Explanations:</p>
+<ul>
+<li><code>-XX:+TieredCompilation -XX:TieredStopAtLevel=1</code>: speeds up JVM startup.</li>
+<li><code>-T 1C</code>: use 1 thread per available CPU core</li>
+<li><code>-offline</code>: do not download from remote repos.</li>
+</ul>
+<h2 id="Test-3-default-command-with-JDK-aarch64"><a href="#Test-3-default-command-with-JDK-aarch64" class="headerlink" title="Test 3: default command with JDK-aarch64"></a>Test 3: default command with JDK-aarch64</h2><p>Now you need to point <code>$JAVA_HOME</code> to JDK-aarch64. This one is only applicable to M1 chips.</p>
+<pre><code>JAVA_HOME=&quot;/Library/Java/JavaVirtualMachines/zulu-16.jdk/Contents/Home&quot; \
+mvn clean -Drat.skip=true compile</code></pre><h2 id="Test-4-optimized-command-with-JDK-aarch64"><a href="#Test-4-optimized-command-with-JDK-aarch64" class="headerlink" title="Test 4: optimized command with JDK-aarch64"></a>Test 4: optimized command with JDK-aarch64</h2><p>Now point <code>$JAVA_HOME</code> to JDK-aarch64, and add the flags that speed up the build. This one is only applicable to M1 chips.</p>
+<pre><code>JAVA_HOME=&quot;/Library/Java/JavaVirtualMachines/zulu-16.jdk/Contents/Home&quot; \
+MAVEN_OPTS=&quot;-XX:+TieredCompilation -XX:TieredStopAtLevel=1&quot; \
+mvn clean -T 1C -Drat.skip=true compile -offline</code></pre><h2 id="References"><a href="#References" class="headerlink" title="References"></a>References</h2><ul>
+<li><a href="https://www.jrebel.com/blog/how-to-speed-up-your-maven-build" target="_blank" rel="noopener">How to Speed up Your Maven Build</a></li>
+<li><a href="https://bugs.openjdk.java.net/browse/JDK-8251280" target="_blank" rel="noopener">JEP 391: macOS/AArch64 Port</a></li>
+</ul>
+
             
             <!-- 《添加版权声明 -->
             
@@ -118,7 +147,7 @@
 
 
         <footer class="article-footer">
-            <a data-url="https://notecc.ink/posts/989dd112.html" data-id="ckix33n0p0022r4942nl917ns" class="article-share-link">
+            <a data-url="https://notecc.ink/posts/24d4b40c.html" data-id="ckix33n0u002br4948yis9tft" class="article-share-link">
                 Compartir
             </a>
             
@@ -130,19 +159,10 @@
     
   <nav class="article-nav">
     
-      <a href="/posts/1fd66a56.html" class="article-nav-link">
-        <strong class="article-nav-caption">Nuevo</strong>
-        <div class="article-nav-title">
-          
-            Java时间日期处理
-          
-        </div>
-      </a>
     
-    
-      <a href="/posts/b1de1f1.html" class="article-nav-link">
+      <a href="/posts/f135954a.html" class="article-nav-link">
         <strong class="article-nav-caption">Viejo</strong>
-        <div class="article-nav-title">Spring Data Jpa模糊查询</div>
+        <div class="article-nav-title">数组复制</div>
       </a>
     
   </nav>
